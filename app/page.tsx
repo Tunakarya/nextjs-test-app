@@ -1,11 +1,21 @@
 "use client"
 import Image from 'next/image'
 import { useState, useEffect } from "react";
-import { Post } from "./app/types";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
+interface Post {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  username: string;
+  city: string;
+  country: string;
+  position: string;
+  avatar: string;
+}
 const getPosts = async (): Promise<Post[]> => {
   const data = await fetch("https://tunakarya.github.io/jsonapi/source.json");
   const posts = await data.json();
