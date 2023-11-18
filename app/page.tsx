@@ -4,18 +4,17 @@ import { useState, useEffect } from "react";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
-
 // Define the Post type
 type Post = {
-  avatar: string | number;
+  avatar: string;
   firstName: string;
   lastName: string;
   email: string;
-  phoneNumber: string | number;
+  phoneNumber: string;
   username: string;
   city: string;
   country: string;
-  position: string; // Adjusted the type to handle both string and number
+  position: string | number; // Adjusted the type to handle both string and number
 };
 
 const getPosts = async (): Promise<Post[]> => {
@@ -155,3 +154,4 @@ export default function ClientPosts() {
     </div>
   );
 }
+
