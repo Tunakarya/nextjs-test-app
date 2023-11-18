@@ -4,23 +4,26 @@ import { useState, useEffect } from "react";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
+
 // Define the Post type
 type Post = {
   avatar: string;
   firstName: string;
   lastName: string;
   email: string;
-  phoneNumber: string;
+  phoneNumber: number;
   username: string;
   city: string;
   country: string;
-  position: string | number; // Adjusted the type to handle both string and number
+  position: string; // Adjusted the type to handle both string and number
 };
 
 const getPosts = async (): Promise<Post[]> => {
   const data = await fetch("https://tunakarya.github.io/jsonapi/source.json");
   const posts = await data.json();
-  return posts;
+  // Ensure that the 'position' property is parsed as a number if it's expected to be a number
+  const postsWithParsedPosition = posts.map(post => ({ ...post, position: Number(post.position) }));
+  return postsWithParsedPosition;
 };
 
 export default function ClientPosts() {
@@ -154,4 +157,3 @@ export default function ClientPosts() {
     </div>
   );
 }
-
