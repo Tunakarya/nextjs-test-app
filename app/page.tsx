@@ -104,7 +104,7 @@ export default function ClientPosts() {
                 {isModalVisible && selectedPost && (
                   <div
                     id="default-modal"
-                    tabIndex="-1"
+                    tabIndex="1"
                     aria-hidden="true"
                     className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-white p-8 rounded-lg flex shadow-2xl"
                     style={{ maxWidth: '600px' }}
