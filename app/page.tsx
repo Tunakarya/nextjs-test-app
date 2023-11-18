@@ -11,7 +11,7 @@ type Post = {
   firstName: string;
   lastName: string;
   email: string;
-  phoneNumber: string;
+  phoneNumber: number;
   username: string;
   city: string;
   country: string;
