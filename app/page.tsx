@@ -1,5 +1,6 @@
 "use client"
 import { useState, useEffect } from "react";
+import { Post } from "@/lib/types";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
