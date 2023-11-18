@@ -1,29 +1,15 @@
-"use client";
-import Image from 'next/image';
+"use client"
+import Image from 'next/image'
 import { useState, useEffect } from "react";
+import { Post } from "./app/types";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// Define the Post type
-type Post = {
-  avatar: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: number;
-  username: string;
-  city: string;
-  country: string;
-  position: string; // Adjusted the type to handle both string and number
-};
-
 const getPosts = async (): Promise<Post[]> => {
   const data = await fetch("https://tunakarya.github.io/jsonapi/source.json");
   const posts = await data.json();
-  // Ensure that the 'position' property is parsed as a number if it's expected to be a number
-  const postsWithParsedPosition = posts.map(post => ({ ...post, position: Number(post.position) }));
-  return postsWithParsedPosition;
+  return posts;
 };
 
 export default function ClientPosts() {
@@ -47,8 +33,7 @@ export default function ClientPosts() {
     if (selectedPosition) {
       const trimmedSelectedPosition = selectedPosition.trim().toLowerCase();
       const newFilteredPosts = posts.filter((post) => {
-        // Convert post.position to a string for comparison
-        const trimmedPostPosition = String(post.position).trim().toLowerCase();
+        const trimmedPostPosition = post.position.trim().toLowerCase();
         return trimmedPostPosition === trimmedSelectedPosition;
       });
       setFilteredPosts(newFilteredPosts);
@@ -79,7 +64,7 @@ export default function ClientPosts() {
           onChange={(e) => setSelectedPosition(e.target.value)}
         >
           <option value="">All</option>
-          {Array.from(new Set(posts.map((post) => String(post.position)))).map((position) => (
+          {Array.from(new Set(posts.map((post) => post.position))).map((position) => (
             <option key={position} value={position}>
               {position}
             </option>
