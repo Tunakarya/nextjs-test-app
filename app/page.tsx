@@ -1,5 +1,5 @@
-"use client"
-import Image from 'next/image'
+"use client";
+import Image from 'next/image';
 import { useState, useEffect } from "react";
 import { Inter } from "next/font/google";
 
@@ -7,15 +7,15 @@ const inter = Inter({ subsets: ["latin"] });
 
 // Define the Post type
 type Post = {
-  avatar: string;
+  avatar: string | number;
   firstName: string;
   lastName: string;
   email: string;
-  phoneNumber: number;
+  phoneNumber: string | number;
   username: string;
   city: string;
   country: string;
-  position: string;
+  position: string; // Adjusted the type to handle both string and number
 };
 
 const getPosts = async (): Promise<Post[]> => {
@@ -45,7 +45,8 @@ export default function ClientPosts() {
     if (selectedPosition) {
       const trimmedSelectedPosition = selectedPosition.trim().toLowerCase();
       const newFilteredPosts = posts.filter((post) => {
-        const trimmedPostPosition = post.position.trim().toLowerCase();
+        // Convert post.position to a string for comparison
+        const trimmedPostPosition = String(post.position).trim().toLowerCase();
         return trimmedPostPosition === trimmedSelectedPosition;
       });
       setFilteredPosts(newFilteredPosts);
@@ -76,7 +77,7 @@ export default function ClientPosts() {
           onChange={(e) => setSelectedPosition(e.target.value)}
         >
           <option value="">All</option>
-          {Array.from(new Set(posts.map((post) => post.position))).map((position) => (
+          {Array.from(new Set(posts.map((post) => String(post.position)))).map((position) => (
             <option key={position} value={position}>
               {position}
             </option>
@@ -104,7 +105,7 @@ export default function ClientPosts() {
                 {isModalVisible && selectedPost && (
                   <div
                     id="default-modal"
-                    tabIndex="1"
+                    tabIndex="-1"
                     aria-hidden="true"
                     className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-white p-8 rounded-lg flex shadow-2xl"
                     style={{ maxWidth: '600px' }}
