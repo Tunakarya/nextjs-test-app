@@ -74,7 +74,7 @@ export default function ClientPosts() {
           value={selectedPosition || ""}
           onChange={(e) => setSelectedPosition(e.target.value)}
         >
-          <option value="">All</option>
+          <option value="">All Position</option>
           {Array.from(new Set(posts.map((post) => post.position))).map((position) => (
             <option key={position} value={position}>
               {position}
